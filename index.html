@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryan Davila</title>
+  <!-- Browser tab icon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="description" content="Bryan Davila - IT grad in Miami working on cloud, networking, and security.">
+
+  <!-- Fonts: IBM Plex Sans for text, IBM Plex Mono for the "terminal" bits -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== COLORS =====
+       Change these to restyle the whole site.
+       --accent is the one highlight color. */
+    :root {
+      --bg: #faf9f6;
+      --text: #1b1b19;
+      --muted: #62615c;
+      --faint: #9a9891;
+      --line: #e3e1da;
+      --accent: #0f6b52;
+      --card: #ffffff;
+    }
+    /* Dark mode: used automatically if the visitor's device is set to dark */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121311;
+        --text: #e8e6e0;
+        --muted: #a3a19a;
+        --faint: #6f6d67;
+        --line: #2a2b27;
+        --accent: #5fd0a6;
+        --card: #181916;
+      }
+    }
+
+    /* ===== BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 17px;
+    }
+    .mono { font-family: "IBM Plex Mono", Consolas, monospace; }
+    a { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    a:hover { color: var(--accent); }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 56px 0; border-top: 1px solid var(--line); }
+
+    /* Section labels look like folder paths, e.g. ~/projects */
+    .label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ===== NAV BAR ===== */
+    nav { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 0; z-index: 10; }
+    nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 54px; }
+    nav .logo { font-family: "IBM Plex Mono", monospace; font-size: 0.95rem; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    nav ul { list-style: none; display: flex; gap: 22px; }
+    nav ul a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+    nav ul a:hover { color: var(--text); }
+    @media (max-width: 600px) { nav ul { display: none; } }
+
+    /* ===== TOP SECTION ===== */
+    .hero { padding: 80px 0 64px; }
+    .prompt { font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; color: var(--faint); margin-bottom: 14px; }
+    .prompt b { color: var(--accent); font-weight: 500; }
+    .hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+    .hero .intro { max-width: 580px; color: var(--muted); margin-top: 16px; }
+    .status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted); margin-top: 22px;
+    }
+    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .links { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 22px; font-size: 0.95rem; }
+
+    /* ===== PROJECTS ===== */
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 20px 20px 18px;
+      transition: border-color 0.15s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: 6px; }
+    .card p { color: var(--muted); font-size: 0.93rem; }
+    .card ul { padding-left: 16px; color: var(--muted); font-size: 0.9rem; margin: 10px 0 14px; }
+    .card li { margin-bottom: 3px; }
+    .stack { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--faint); }
+    .card .more { font-size: 0.88rem; margin-top: 10px; display: inline-block; }
+    .featured { grid-column: 1 / -1; }   /* makes a card full width */
+
+    /* ===== SKILLS ===== */
+    .skills { display: grid; grid-template-columns: 170px 1fr; gap: 10px 24px; font-size: 0.95rem; }
+    .skills dt { color: var(--muted); }
+    @media (max-width: 600px) { .skills { grid-template-columns: 1fr; } .skills dd { margin-bottom: 10px; } }
+
+    /* ===== EXPERIENCE ===== */
+    .job { display: grid; grid-template-columns: 130px 1fr; gap: 24px; margin-bottom: 28px; }
+    .job .when { font-family: "IBM Plex Mono", monospace; font-size: 0.82rem; color: var(--faint); padding-top: 3px; }
+    .job h3 { font-size: 1rem; font-weight: 600; }
+    .job ul { padding-left: 16px; color: var(--muted); font-size: 0.93rem; margin-top: 4px; }
+    @media (max-width: 600px) { .job { grid-template-columns: 1fr; gap: 2px; } }
+
+    /* ===== FOOTER ===== */
+    footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 0.82rem; color: var(--faint); }
+    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV BAR ===== -->
+  <nav>
+    <div class="wrap">
+      <a class="logo" href="#"><img src="favicon.svg" alt="" width="24" height="24">beginn.me</a>
+      <ul>
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== TOP SECTION ===== -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="prompt"><b>bryan@beginn</b>:~$ whoami</div>
+      <h1>Bryan Davila</h1>
+      <p class="intro">
+        I studied IT at FIU with a focus on networking and security.
+        These days I'm building on AWS, including the server this page runs on.
+      </p>
+      <div class="status">Miami, FL &middot; looking for cloud and IT support roles</div>
+      <div class="links">
+        <!-- EDIT: upload your resume PDF next to this file and name it resume.pdf -->
+        <a href="resume.pdf" target="_blank">Resume</a>
+        <a href="https://github.com/Bryanspeed03" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/bryandavila/" target="_blank">LinkedIn</a>
+        <a href="mailto:bryan@beginn.me">Email</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="wrap">
+      <span class="label">~/about</span>
+      <!-- EDIT: Your About Me. Change the words between <p> and </p>. -->
+      <p>
+        Besides AWS, I am always working on my card business (<span class="mono">@bryanscardworld</span> everywhere),
+        playing video games, traveling when I can, and watching sports. I also write for my friend's blog,
+        which you can find at <a href="https://hydroxide.me" target="_blank">hydroxide.me</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects">
+    <div class="wrap">
+      <span class="label">~/projects</span>
+      <div class="cards">
+
+        <!-- This card is full width because of the "featured" class. Remove "featured" to make it normal size. -->
+        <div class="card featured">
+          <h3>This website</h3>
+          <p>I set up the server behind beginn.me myself instead of using a website builder.</p>
+          <ul>
+            <li>Ubuntu on AWS EC2 with an Elastic IP and SSH</li>
+            <li>Nginx web server, with Route 53 DNS for the domain and www</li>
+            <li>HTTPS through Certbot, set to renew on its own</li>
+          </ul>
+          <div class="stack">aws ec2 / route 53 / nginx / ubuntu / certbot</div>
+        </div>
+
+        <!-- PROJECT CARD: copy a whole <div class="card">...</div> block to add a new project -->
+        <div class="card">
+          <h3>SSH Log Analyzer</h3>
+          <p>A Python script that reads Linux SSH logs and flags brute-force attempts.</p>
+          <ul>
+            <li>Sliding-window check for repeated failed logins per IP</li>
+            <li>Regex to pull out timestamps, usernames, and IPs</li>
+            <li>Tracked down a detection bug and a Windows encoding error</li>
+          </ul>
+          <div class="stack">python / regex</div>
+          <a class="more" href="https://github.com/Bryanspeed03/ssh-log-analyzer" target="_blank">Code on GitHub</a>
+        </div>
+
+        <div class="card">
+          <h3>Cloud Deployment Lab</h3>
+          <p>A locked-down Linux setup on AWS.</p>
+          <ul>
+            <li>EC2 with key-based SSH and tight security groups</li>
+            <li>S3 buckets with least-privilege IAM policies</li>
+          </ul>
+          <div class="stack">aws / iam / s3</div>
+        </div>
+
+        <div class="card">
+          <h3>Network Traffic &amp; Scanning</h3>
+          <p>Looked at live traffic and scanned a lab network for weak spots.</p>
+          <ul>
+            <li>DNS and HTTP traffic in Wireshark</li>
+            <li>Nmap scans, written up with fixes</li>
+          </ul>
+          <div class="stack">wireshark / nmap</div>
+        </div>
+
+        <div class="card">
+          <h3>Statcast Dashboard</h3>
+          <p>A Power BI dashboard on MLB data.</p>
+          <ul>
+            <li>Batting average vs. expected batting average by player</li>
+            <li>Cleaned the raw data myself before building it</li>
+          </ul>
+          <div class="stack">power bi</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills">
+    <div class="wrap">
+      <span class="label">~/skills</span>
+      <dl class="skills">
+        <dt>Cloud &amp; systems</dt>   <dd>AWS (EC2, S3, IAM, Route 53), Ubuntu, Nginx, Windows</dd>
+        <dt>Network &amp; security</dt><dd>Wireshark, Nmap, TCP/IP, DNS, SSL/TLS, log analysis</dd>
+        <dt>Scripting &amp; data</dt>  <dd>Linux, Python, regex, SQL, Power BI, Excel</dd>
+        <dt>Other</dt>                  <dd>Git, EZLynx</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience">
+    <div class="wrap">
+      <span class="label">~/experience</span>
+
+      <div class="job">
+        <div class="when">2023 – now</div>
+        <div>
+          <h3>DRVN Insurance &middot; Administrative Assistant</h3>
+          <ul>
+            <li>Run auto and life quotes every day in EZLynx and carrier platforms</li>
+            <li>Draft auto policies under a licensed agent</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="when">2024 – now</div>
+        <div>
+          <h3>Bryan's Card World &middot; Owner</h3>
+          <ul>
+            <li>Buy and sell sports and Pokémon cards at local shows and online</li>
+            <li>Track inventory and profit per show in spreadsheets I built</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="label">~/contact</span>
+      <p>Email is the best way to reach me: <a href="mailto:bryan@beginn.me">bryan@beginn.me</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>&copy; <span id="year"></span> Bryan Davila</span>
+      <span class="mono">served by nginx on aws ec2</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
