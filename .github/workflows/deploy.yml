@@ -16,7 +16,7 @@ jobs:
       - name: Log in to AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::746364933546:role/github-actions-beginn-deploy
           aws-region: us-east-2
 
       - name: Tell the server to pull the latest site
