@@ -27,6 +27,7 @@
       --line: #e3e1da;
       --accent: #0f6b52;
       --card: #ffffff;
+      --glow: rgba(15, 107, 82, 0.14);
     }
     /* Dark mode: used automatically if the visitor's device is set to dark */
     @media (prefers-color-scheme: dark) {
@@ -38,12 +39,13 @@
         --line: #2a2b27;
         --accent: #5fd0a6;
         --card: #181916;
+        --glow: rgba(95, 208, 166, 0.18);
       }
     }
 
     /* ===== BASE ===== */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 60px; }   /* stops the sticky nav from covering section titles */
     body {
       font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
       background: var(--bg);
@@ -72,7 +74,9 @@
     nav .logo { font-family: "IBM Plex Mono", monospace; font-size: 0.95rem; text-decoration: none; display: flex; align-items: center; gap: 10px; }
     nav ul { list-style: none; display: flex; gap: 22px; }
     nav ul a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+    nav ul a { transition: color 0.2s; }
     nav ul a:hover { color: var(--text); }
+    nav ul a.active { color: var(--accent); }   /* highlights the section you're reading */
     @media (max-width: 600px) { nav ul { display: none; } }
 
     /* ===== TOP SECTION ===== */
@@ -86,7 +90,35 @@
       font-size: 0.88rem; color: var(--muted); margin-top: 22px;
     }
     .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-    .links { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 22px; font-size: 0.95rem; }
+    /* Blinking terminal cursor after "whoami" */
+    .cursor {
+      display: inline-block; width: 8px; height: 1.05em; margin-left: 2px;
+      background: var(--accent); vertical-align: text-bottom;
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* The rest of the top section fades in after "whoami" finishes typing */
+    .reveal { opacity: 0; transform: translateY(6px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    /* Links as terminal-style buttons: [ Resume ] */
+    .links { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.92rem; }
+    .links a {
+      font-family: "IBM Plex Mono", monospace;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 14px;
+      transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .links a::before { content: "[ "; color: var(--faint); }
+    .links a::after  { content: " ]"; color: var(--faint); }
+    .links a:hover { border-color: var(--accent); box-shadow: 0 0 12px var(--glow); transform: translateY(-2px); }
+
+    /* Sections fade in as you scroll to them */
+    .fade { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade.visible { opacity: 1; transform: none; }
 
     /* ===== PROJECTS ===== */
     .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -96,15 +128,17 @@
       border: 1px solid var(--line);
       border-radius: 4px;
       padding: 20px 20px 18px;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     }
-    .card:hover { border-color: var(--accent); }
+    .card:hover { border-color: var(--accent); box-shadow: 0 0 18px var(--glow); transform: translateY(-2px); }
     .card h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: 6px; }
     .card p { color: var(--muted); font-size: 0.93rem; }
     .card ul { padding-left: 16px; color: var(--muted); font-size: 0.9rem; margin: 10px 0 14px; }
     .card li { margin-bottom: 3px; }
     .stack { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--faint); }
     .card .more { font-size: 0.88rem; margin-top: 10px; display: inline-block; }
+    .card .more::after { content: " →"; display: inline-block; transition: transform 0.2s; }
+    .card .more:hover::after { transform: translateX(4px); }
     .featured { grid-column: 1 / -1; }   /* makes a card full width */
 
     /* ===== SKILLS ===== */
@@ -122,6 +156,13 @@
     /* ===== FOOTER ===== */
     footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 0.82rem; color: var(--faint); }
     footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    /* Visitors who turn off motion in their device settings get a still page */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+      .fade, .reveal { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
@@ -143,7 +184,8 @@
   <!-- ===== TOP SECTION ===== -->
   <header class="hero">
     <div class="wrap">
-      <div class="prompt"><b>bryan@beginn</b>:~$ whoami</div>
+      <div class="prompt"><b>bryan@beginn</b>:~$ <span id="typed">whoami</span><span class="cursor"></span></div>
+      <div class="reveal" id="heroBody">
       <h1>Bryan Davila</h1>
       <p class="intro">
         I studied IT at FIU with a focus on networking and security.
@@ -157,11 +199,12 @@
         <a href="https://linkedin.com/in/bryandavila/" target="_blank">LinkedIn</a>
         <a href="mailto:bryan@beginn.me">Email</a>
       </div>
+      </div>
     </div>
   </header>
 
   <!-- ===== ABOUT ===== -->
-  <section id="about">
+  <section id="about" class="fade">
     <div class="wrap">
       <span class="label">~/about</span>
       <!-- EDIT: Your About Me. Change the words between <p> and </p>. -->
@@ -174,7 +217,7 @@
   </section>
 
   <!-- ===== PROJECTS ===== -->
-  <section id="projects">
+  <section id="projects" class="fade">
     <div class="wrap">
       <span class="label">~/projects</span>
       <div class="cards">
@@ -239,7 +282,7 @@
   </section>
 
   <!-- ===== SKILLS ===== -->
-  <section id="skills">
+  <section id="skills" class="fade">
     <div class="wrap">
       <span class="label">~/skills</span>
       <dl class="skills">
@@ -252,7 +295,7 @@
   </section>
 
   <!-- ===== EXPERIENCE ===== -->
-  <section id="experience">
+  <section id="experience" class="fade">
     <div class="wrap">
       <span class="label">~/experience</span>
 
@@ -281,7 +324,7 @@
   </section>
 
   <!-- ===== CONTACT ===== -->
-  <section id="contact">
+  <section id="contact" class="fade">
     <div class="wrap">
       <span class="label">~/contact</span>
       <p>Email is the best way to reach me: <a href="mailto:bryan@beginn.me">bryan@beginn.me</a></p>
@@ -297,6 +340,81 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const heroBody = document.getElementById("heroBody");
+    const sections = document.querySelectorAll("section[id]");
+
+    // 1. Type out "whoami", then show the rest of the top section
+    if (reduceMotion) {
+      heroBody.classList.add("show");
+    } else {
+      const typed = document.getElementById("typed");
+      const command = typed.textContent;
+      typed.textContent = "";
+      let i = 0;
+      setTimeout(function typeNext() {
+        typed.textContent += command[i++];
+        if (i < command.length) setTimeout(typeNext, 110);
+        else setTimeout(() => heroBody.classList.add("show"), 250);
+      }, 400);
+    }
+
+    // 2. Fade each section in the first time it scrolls into view
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      sections.forEach((s) => s.classList.add("visible"));
+    } else {
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("visible"); fadeObserver.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      sections.forEach((s) => fadeObserver.observe(s));
+    }
+
+    // 3. Highlight the nav link for the section you're reading
+    const navLinks = document.querySelectorAll("nav ul a");
+    const navHeight = document.querySelector("nav").offsetHeight;
+    let clickedId = null;   // set briefly after a nav click so the scroll doesn't override it
+
+    function setActive(id) {
+      navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+    }
+
+    function updateActive() {
+      if (clickedId) return;
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      let current = null;
+      if (atBottom) {
+        // Short sections at the bottom (like contact) can't reach the top, so pick the last one
+        current = sections[sections.length - 1].id;
+      } else {
+        // Otherwise: the last section whose top has passed just under the nav bar
+        sections.forEach((s) => {
+          if (s.getBoundingClientRect().top <= navHeight + 80) current = s.id;
+        });
+      }
+      setActive(current);   // null clears it when you're back at the top
+    }
+
+    // Clicking a link highlights it right away and keeps it highlighted
+    // until you scroll yourself (mouse wheel, touch, or keyboard)
+    navLinks.forEach((a) => {
+      a.addEventListener("click", () => {
+        clickedId = a.getAttribute("href").slice(1);
+        setActive(clickedId);
+      });
+    });
+    function releaseClick() {
+      if (clickedId) { clickedId = null; requestAnimationFrame(updateActive); }
+    }
+    ["wheel", "touchmove", "keydown"].forEach((ev) =>
+      window.addEventListener(ev, releaseClick, { passive: true })
+    );
+
+    window.addEventListener("scroll", updateActive, { passive: true });
+    window.addEventListener("resize", updateActive);
+    updateActive();
   </script>
 </body>
 </html>
