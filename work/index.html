@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryan Davila, Work</title>
+  <meta name="description" content="Bryan Davila, IT grad in Miami. Cloud, networking and security projects, including the AWS server this site runs on.">
+  <link rel="icon" href="/assets/favicon-work.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:title" content="Bryan Davila, Work">
+  <meta property="og:description" content="Cloud, networking and security projects.">
+  <meta property="og:image" content="https://beginn.me/assets/og.png">
+  <meta property="og:url" content="https://beginn.me/work/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0A0B0D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Colors. "accent" is the work-page blue. */
+    :root {
+      --bg: #0A0B0D;
+      --surface: #111316;
+      --surface-2: #15181C;
+      --surface-3: #0F1114;
+      --line: #1C1F24;
+      --border: #23272D;
+      --border-strong: #2A2F36;
+      --text: #ECEEF0;
+      --muted: #9BA1A9;
+      --dim: #7C838C;
+      --accent: #7FB0FF;
+      --ease: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Geist", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { overflow-x: clip; }
+    a { color: var(--text); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 8px; }
+    h1, h2, h3, p { margin: 0; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+    .mono { font-family: "Geist Mono", monospace; }
+
+    /* Nav */
+    .nav { border-bottom: 1px solid var(--line); }
+    .nav .wrap { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; }
+    .brand img { width: 28px; height: 28px; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+    .nav-link { color: var(--muted); text-decoration: none; padding: 8px 12px; border-radius: 10px; transition: color 150ms ease, background-color 150ms ease; }
+    .nav-link:hover { color: var(--text); background: #16191D; }
+    .nav-sep { width: 1px; height: 20px; background: var(--border); margin: 0 8px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); transition: color 150ms ease, background-color 150ms ease, transform 150ms var(--ease); }
+    .icon-btn:hover { color: var(--text); background: #16191D; transform: translateY(-1px); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    /* Hero */
+    .hero { padding: 88px 0 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
+    .hero-text { flex: 1 1 520px; min-width: 0; }
+    .hello { font-size: 16px; color: var(--muted); margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(44px, 6vw, 64px); line-height: 1.02; font-weight: 600; letter-spacing: -0.045em; max-width: 10em; }
+    .hero-sub { margin-top: 24px; font-size: 19px; color: var(--muted); max-width: 26em; }
+    .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease, box-shadow 200ms ease; }
+    .btn:active { transform: scale(0.98); }
+    .btn svg { width: 18px; height: 18px; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary:hover { box-shadow: 0 0 0 4px rgba(127, 176, 255, 0.18); }
+    .btn-ghost { border: 1px solid var(--border-strong); font-weight: 500; }
+    .btn-ghost:hover { border-color: #4A515A; background: var(--surface); }
+
+    /* Diagram of how the site runs */
+    .diagram-wrap { flex: 1 1 400px; min-width: 0; margin: 0; position: relative; }
+    .diagram-wrap::before { content: ""; position: absolute; inset: -12% -8%; background: radial-gradient(closest-side, rgba(200, 210, 225, 0.08), transparent); pointer-events: none; }
+    .diagram { position: relative; background: var(--surface-3); border: 1px solid var(--border); border-radius: 12px; padding: 28px 28px 24px; display: flex; flex-direction: column; align-items: center; }
+    .diagram figcaption { align-self: flex-start; margin-bottom: 22px; font-size: 13px; color: var(--dim); }
+    .node { border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); padding: 12px 14px; width: 100%; }
+    .node-top { width: auto; padding: 10px 16px; font-size: 14px; text-align: center; }
+    .node strong { font-weight: 600; }
+    .node .sub { color: var(--muted); }
+    .node-main { border-color: #4A515A; background: var(--surface-2); padding: 16px 18px; }
+    .node-main p:first-child { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { font-size: 13px; padding: 5px 10px; border-radius: 8px; background: #1C2026; border: 1px solid var(--border-strong); }
+    .line-v { width: 1px; height: 26px; background: #3A4048; }
+    .node-pair { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .node-pair > div { display: flex; flex-direction: column; align-items: center; }
+    .arrow-up, .arrow-down { display: flex; flex-direction: column; align-items: center; }
+    .arrow-up::before, .arrow-down::after { content: ""; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; }
+    .arrow-up::before { border-bottom: 6px solid #3A4048; }
+    .arrow-down::after { border-top: 6px solid #3A4048; }
+    .arrow-up span, .arrow-down span { width: 1px; height: 22px; background: #3A4048; }
+    .node-pair .node p:first-child { font-size: 14px; font-weight: 600; }
+    .node-pair .node p:last-child { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* Tool strip */
+    .tools { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #0D0F11; }
+    .tools .wrap { padding-top: 24px; padding-bottom: 24px; display: flex; flex-wrap: wrap; gap: 14px 34px; justify-content: center; align-items: center; font-size: 15px; font-weight: 500; color: #C9CDD3; }
+    .tools span { display: inline-flex; align-items: center; gap: 9px; }
+    .tools img, .tools svg { width: 20px; height: 20px; display: block; }
+
+    /* Sections */
+    .section { padding: 96px 0 88px; }
+    .section + .section, .bordered { border-top: 1px solid var(--line); }
+    .section-title { font-size: 40px; font-weight: 600; letter-spacing: -0.035em; margin-bottom: 40px; }
+    .section-title.small { font-size: 32px; letter-spacing: -0.03em; margin-bottom: 16px; }
+
+    /* Project tiles */
+    .tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; transition: border-color 150ms ease, transform 150ms var(--ease); }
+    .tile:hover { border-color: #3A4048; transform: translateY(-2px); }
+    .tile.alt { background: var(--surface-2); }
+    .tile.wide { background: var(--surface-3); flex-direction: row; flex-wrap: wrap; align-items: baseline; padding: 24px 28px; }
+    .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-3 { grid-column: span 3; } .span-2 { grid-column: span 2; }
+    .tile h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 6px; }
+    .tile.big h3 { font-size: 22px; }
+    .tile h3 a { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .tile h3 a svg { width: 16px; height: 16px; transition: transform 150ms var(--ease); }
+    .tile h3 a:hover svg { transform: translate(2px, -2px); }
+    .tile p { color: var(--muted); font-size: 15px; }
+    .tile.big p { font-size: 16px; max-width: 36em; }
+    .stack { font-family: "Geist Mono", monospace; font-size: 13px; color: var(--dim) !important; }
+
+    /* About, experience, skills */
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 64px; }
+    .about p { font-size: 17px; color: var(--muted); }
+    .about a { text-underline-offset: 4px; text-decoration-color: var(--accent); }
+    .job { padding: 0 0 18px; }
+    .job + .job { padding: 18px 0 0; border-top: 1px solid var(--line); }
+    .job h3 { font-size: 17px; font-weight: 600; }
+    .job p { color: var(--muted); font-size: 15px; margin-top: 2px; }
+    .skills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+    .skills dt { font-weight: 600; }
+    .skills dd { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+    .cert { display: flex; align-items: center; gap: 10px; }
+    .cert svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
+
+    /* Contact */
+    .contact { border-top: 1px solid var(--line); position: relative; overflow: hidden; }
+    .contact::before { content: ""; position: absolute; left: 50%; top: -40px; width: 760px; height: 360px; margin-left: -380px; background: radial-gradient(closest-side, rgba(200, 210, 225, 0.07), transparent); pointer-events: none; }
+    .contact .wrap { position: relative; padding-top: 104px; padding-bottom: 104px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .contact h2 { font-size: 48px; font-weight: 600; letter-spacing: -0.04em; }
+    .contact p { margin-top: 12px; font-size: 18px; color: var(--muted); }
+    .contact .btn { margin-top: 32px; background: var(--text); color: var(--bg); font-size: 17px; padding: 0 26px; min-height: 52px; }
+    .contact .btn:hover { background: #fff; box-shadow: 0 0 0 4px rgba(236, 238, 240, 0.12); }
+    .contact .btn svg { width: 20px; height: 20px; }
+
+    footer { border-top: 1px solid var(--line); }
+    footer .wrap { padding-top: 24px; padding-bottom: 40px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--dim); }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* One load-in moment for the hero */
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .rise { animation: rise 520ms var(--ease) both; }
+    .d1 { animation-delay: 60ms; } .d2 { animation-delay: 120ms; } .d3 { animation-delay: 180ms; } .d4 { animation-delay: 240ms; }
+
+    /* Tablets */
+    @media (max-width: 900px) {
+      .span-4, .span-2, .span-3 { grid-column: span 6; }
+      .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    /* Phones */
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .nav-link { display: none; }
+      .nav-sep { display: none; }
+      .hero { padding: 56px 0 64px; gap: 40px; }
+      .section { padding: 64px 0; }
+      .section-title { font-size: 32px; margin-bottom: 28px; }
+      .two-col, .skills { grid-template-columns: 1fr; }
+      .contact h2 { font-size: 36px; }
+      .contact .wrap { padding-top: 72px; padding-bottom: 72px; }
+      .node-pair { gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .rise { animation: none; }
+      .tile, .btn, .icon-btn, .nav-link { transition: none; }
+      .tile:hover, .icon-btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/assets/logo-work.svg" alt="">Bryan Davila</a>
+      <div class="nav-right">
+        <a class="nav-link" href="#work">Work</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <span class="nav-sep" aria-hidden="true"></span>
+        <a class="icon-btn" href="https://github.com/Bryanspeed03" aria-label="GitHub"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg></a>
+        <a class="icon-btn" href="https://linkedin.com/in/bryandavila/" aria-label="LinkedIn"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></svg></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="wrap hero">
+      <div class="hero-text">
+        <p class="hello rise">Hi, I'm Bryan.</p>
+        <h1 class="rise d1">I build and run things in the cloud.</h1>
+        <p class="hero-sub rise d2">IT grad from FIU in Miami and AWS Certified Cloud Practitioner. I built this site's server myself.</p>
+        <div class="ctas rise d3">
+          <a class="btn btn-primary" href="/resume.pdf"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>Resume</a>
+          <a class="btn btn-ghost" href="#work">See my work</a>
+        </div>
+      </div>
+
+      <figure class="diagram-wrap rise d4">
+        <div class="diagram">
+          <figcaption>How this site runs</figcaption>
+          <div class="node node-top"><strong>Route 53</strong><span class="sub">&nbsp; DNS for beginn.me</span></div>
+          <div class="line-v" aria-hidden="true"></div>
+          <div class="node node-main">
+            <p>EC2 server <span class="sub" style="font-weight: 400">Ubuntu, Elastic IP</span></p>
+            <div class="chips">
+              <span class="chip">Nginx</span>
+              <span class="chip">HTTPS via Certbot</span>
+              <span class="chip">fail2ban</span>
+            </div>
+          </div>
+          <div class="node-pair">
+            <div>
+              <div class="arrow-up" aria-hidden="true"><span></span></div>
+              <div class="node"><p>GitHub Actions + SSM</p><p>Deploys every push</p></div>
+            </div>
+            <div>
+              <div class="arrow-down" aria-hidden="true"><span></span></div>
+              <div class="node"><p>CloudWatch + SNS</p><p>Emails me if it breaks</p></div>
+            </div>
+          </div>
+        </div>
+      </figure>
+    </header>
+
+    <section class="tools" aria-label="Tools I use">
+      <div class="wrap">
+        <span><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M160,40A88.09,88.09,0,0,0,81.29,88.67,64,64,0,1,0,72,216h88a88,88,0,0,0,0-176Zm0,160H72a48,48,0,0,1,0-96c1.1,0,2.2,0,3.29.11A88,88,0,0,0,72,128a8,8,0,0,0,16,0,72,72,0,1,1,72,72Z"/></svg>AWS</span>
+        <span><img src="/assets/logos/ubuntu.svg" alt="">Ubuntu</span>
+        <span><img src="/assets/logos/nginx.svg" alt="">Nginx</span>
+        <span><img src="/assets/logos/githubactions.svg" alt="">GitHub Actions</span>
+        <span><img src="/assets/logos/letsencrypt.svg" alt="">Let's Encrypt</span>
+        <span><img src="/assets/logos/python.svg" alt="">Python</span>
+        <span><img src="/assets/logos/linux.svg" alt="">Linux</span>
+        <span><img src="/assets/logos/wireshark.svg" alt="">Wireshark</span>
+        <span><img src="/assets/logos/git.svg" alt="">Git</span>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <div class="wrap">
+        <h2 class="section-title">Things I've built</h2>
+        <div class="tiles">
+          <!-- To add a project, copy one <article> and change the text. -->
+          <article class="tile big span-4">
+            <div>
+              <h3>This website</h3>
+              <p>Ubuntu on EC2 with Nginx, HTTPS and Route 53. Each push to GitHub deploys through AWS SSM, and CloudWatch emails me if the server goes down.</p>
+            </div>
+            <p class="stack">ec2 / route 53 / nginx / certbot / ssm / cloudwatch / sns</p>
+          </article>
+
+          <article class="tile alt span-2">
+            <div>
+              <h3><a href="https://github.com/Bryanspeed03/ssh-log-analyzer">SSH Log Analyzer<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></h3>
+              <p>Python that flags brute-force attempts in Linux SSH logs. Works on my live server's logs.</p>
+            </div>
+            <p class="stack">python / regex / linux</p>
+          </article>
+
+          <article class="tile alt span-3">
+            <div>
+              <h3>Cloud Deployment Lab</h3>
+              <p>Locked-down Linux on AWS with key-only SSH, tight security groups, and least-privilege IAM for S3.</p>
+            </div>
+            <p class="stack">aws / iam / s3</p>
+          </article>
+
+          <article class="tile span-3">
+            <div>
+              <h3>Network Traffic and Scanning</h3>
+              <p>Read live DNS and HTTP traffic in Wireshark, scanned a lab network with Nmap, and wrote up fixes.</p>
+            </div>
+            <p class="stack">wireshark / nmap</p>
+          </article>
+
+          <article class="tile wide span-6">
+            <div>
+              <h3>Statcast Dashboard</h3>
+              <p>Power BI on MLB data, comparing batting average to expected batting average by player.</p>
+            </div>
+            <p class="stack">power bi / sql</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="wrap two-col">
+        <div class="about">
+          <h2 class="section-title small">About me</h2>
+          <p>I like knowing how things work underneath, so I host this site on my own Linux server instead of a website builder. Outside of tech I run a trading card business (@bryanscardworld), play video games, travel when I can, and write for my friend's blog, <a href="https://hydroxide.me">hydroxide.me</a>.</p>
+        </div>
+        <div>
+          <h2 class="section-title small">Experience</h2>
+          <div class="job">
+            <h3>DRVN Insurance</h3>
+            <p>Administrative Assistant, 2023 to now. Daily auto and life quotes in EZLynx and carrier platforms.</p>
+          </div>
+          <div class="job">
+            <h3>Bryan's Card World</h3>
+            <p>Owner, 2024 to now. Sports and Pokémon cards at shows and online.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="skills-title">
+      <div class="wrap">
+        <h2 id="skills-title" class="section-title small" style="margin-bottom: 32px">Skills and certs</h2>
+        <dl class="skills">
+          <div>
+            <dt>Certifications</dt>
+            <dd class="cert"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-11.55,39.29c-4.79,5-9.75,10.17-12.38,16.52-2.52,6.1-2.63,13.07-2.73,19.82-.1,7-.21,14.33-3.32,17.43s-10.39,3.22-17.43,3.32c-6.75.1-13.72.21-19.82,2.73-6.35,2.63-11.52,7.59-16.52,12.38S132,224,128,224s-9.15-4.92-14.11-9.69-10.17-9.75-16.52-12.38c-6.1-2.52-13.07-2.63-19.82-2.73-7-.1-14.33-.21-17.43-3.32s-3.22-10.39-3.32-17.43c-.1-6.75-.21-13.72-2.73-19.82-2.63-6.35-7.59-11.52-12.38-16.52S32,132,32,128s4.92-9.15,9.69-14.11,9.75-10.17,12.38-16.52c2.52-6.1,2.63-13.07,2.73-19.82.1-7,.21-14.33,3.32-17.43S70.51,56.9,77.55,56.8c6.75-.1,13.72-.21,19.82-2.73,6.35-2.63,11.52-7.59,16.52-12.38S124,32,128,32s9.15,4.92,14.11,9.69,10.17,9.75,16.52,12.38c6.1,2.52,13.07,2.63,19.82,2.73,7,.1,14.33.21,17.43,3.32s3.22,10.39,3.32,17.43c.1,6.75.21,13.72,2.73,19.82,2.63,6.35,7.59,11.52,12.38,16.52S224,124,224,128,219.08,137.15,214.31,142.11ZM173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"/></svg>AWS Certified Cloud Practitioner, 2026</dd>
+          </div>
+          <div>
+            <dt>Cloud and systems</dt>
+            <dd>AWS (EC2, S3, IAM, Route 53, CloudWatch, SSM), Ubuntu, Nginx, Windows</dd>
+          </div>
+          <div>
+            <dt>Network and security</dt>
+            <dd>Wireshark, Nmap, TCP/IP, DNS, SSL/TLS, fail2ban, log analysis</dd>
+          </div>
+          <div>
+            <dt>Scripting and data</dt>
+            <dd>Linux, Python, regex, SQL, Power BI, Excel, Git</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <h2>Get in touch</h2>
+        <p>Email is the best way to reach me.</p>
+        <a class="btn" href="mailto:bryan@beginn.me"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>bryan@beginn.me</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Bryan Davila</span>
+      <a href="/">Back to beginn.me</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

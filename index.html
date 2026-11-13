@@ -4,418 +4,262 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bryan Davila</title>
-  <!-- Browser tab icon -->
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="description" content="Bryan Davila - IT grad in Miami working on cloud, networking, and security.">
-
-  <!-- Fonts: IBM Plex Sans for text, IBM Plex Mono for the "terminal" bits -->
+  <meta name="description" content="Bryan Davila, IT grad in Miami. Tech work, a trading card business, and gaming.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:title" content="Bryan Davila">
+  <meta property="og:description" content="Tech work, a trading card business, and gaming.">
+  <meta property="og:image" content="https://beginn.me/assets/og.png">
+  <meta property="og:url" content="https://beginn.me/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0A0B0D">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* ===== COLORS =====
-       Change these to restyle the whole site.
-       --accent is the one highlight color. */
     :root {
-      --bg: #faf9f6;
-      --text: #1b1b19;
-      --muted: #62615c;
-      --faint: #9a9891;
-      --line: #e3e1da;
-      --accent: #0f6b52;
-      --card: #ffffff;
-      --glow: rgba(15, 107, 82, 0.14);
-    }
-    /* Dark mode: used automatically if the visitor's device is set to dark */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121311;
-        --text: #e8e6e0;
-        --muted: #a3a19a;
-        --faint: #6f6d67;
-        --line: #2a2b27;
-        --accent: #5fd0a6;
-        --card: #181916;
-        --glow: rgba(95, 208, 166, 0.18);
-      }
+      --bg: #0A0B0D;
+      --surface: #111316;
+      --line: #1C1F24;
+      --border: #23272D;
+      --border-strong: #2A2F36;
+      --text: #ECEEF0;
+      --muted: #9BA1A9;
+      --dim: #7C838C;
+      --ease: cubic-bezier(0.2, 0, 0, 1);
     }
 
-    /* ===== BASE ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 60px; }   /* stops the sticky nav from covering section titles */
+    * { box-sizing: border-box; }
     body {
-      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      margin: 0;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.65;
-      font-size: 17px;
+      font-family: "Geist", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
     }
-    .mono { font-family: "IBM Plex Mono", Consolas, monospace; }
-    a { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
-    a:hover { color: var(--accent); }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-    section { padding: 56px 0; border-top: 1px solid var(--line); }
+    a { color: var(--text); }
+    a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 14px; }
+    h1, h2, p { margin: 0; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; width: 100%; }
 
-    /* Section labels look like folder paths, e.g. ~/projects */
-    .label {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.85rem;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: block;
+    /* Nav */
+    .nav { position: relative; z-index: 2; }
+    .nav .wrap { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; }
+    .brand img { width: 28px; height: 28px; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+    .nav-link { color: var(--muted); text-decoration: none; padding: 8px 12px; border-radius: 10px; transition: color 150ms ease, background-color 150ms ease; }
+    .nav-link:hover { color: var(--text); background: #16191D; }
+    .nav-sep { width: 1px; height: 20px; background: var(--border); margin: 0 8px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); transition: color 150ms ease, background-color 150ms ease, transform 150ms var(--ease); }
+    .icon-btn:hover { color: var(--text); background: #16191D; transform: translateY(-1px); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    /* Hero: light from the top over a fading grid */
+    .hero { position: relative; overflow-x: clip; }
+    .hero::before {
+      content: ""; position: absolute; inset: -68px 0 0 0; pointer-events: none;
+      background-image: linear-gradient(#15181C 1px, transparent 1px), linear-gradient(90deg, #15181C 1px, transparent 1px);
+      background-size: 56px 56px; background-position: center top;
+      -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 30%, transparent 75%);
     }
-
-    /* ===== NAV BAR ===== */
-    nav { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 0; z-index: 10; }
-    nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 54px; }
-    nav .logo { font-family: "IBM Plex Mono", monospace; font-size: 0.95rem; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    nav ul { list-style: none; display: flex; gap: 22px; }
-    nav ul a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
-    nav ul a { transition: color 0.2s; }
-    nav ul a:hover { color: var(--text); }
-    nav ul a.active { color: var(--accent); }   /* highlights the section you're reading */
-    @media (max-width: 600px) { nav ul { display: none; } }
-
-    /* ===== TOP SECTION ===== */
-    .hero { padding: 80px 0 64px; }
-    .prompt { font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; color: var(--faint); margin-bottom: 14px; }
-    .prompt b { color: var(--accent); font-weight: 500; }
-    .hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
-    .hero .intro { max-width: 580px; color: var(--muted); margin-top: 16px; }
-    .status {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.88rem; color: var(--muted); margin-top: 22px;
+    .hero::after {
+      content: ""; position: absolute; left: 50%; top: -220px; width: 1100px; height: 640px; margin-left: -550px; pointer-events: none;
+      background: radial-gradient(closest-side, rgba(170, 190, 230, 0.14), transparent);
     }
-    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-    /* Blinking terminal cursor after "whoami" */
-    .cursor {
-      display: inline-block; width: 8px; height: 1.05em; margin-left: 2px;
-      background: var(--accent); vertical-align: text-bottom;
-      animation: blink 1s steps(1) infinite;
+    .hero .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .logo-tile { width: 64px; height: 64px; border-radius: 16px; display: block; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 40px rgba(150, 170, 210, 0.18); }
+    .hero h1 {
+      margin-top: 32px; font-size: clamp(52px, 8vw, 76px); line-height: 1; font-weight: 600; letter-spacing: -0.05em;
+      background: linear-gradient(180deg, #FFFFFF 30%, #A9AFB8); -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+    .hero p { margin-top: 22px; font-size: 20px; color: var(--muted); max-width: 30em; }
+    .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease, transform 150ms var(--ease), box-shadow 200ms ease; }
+    .btn:active { transform: scale(0.97); }
+    .btn .arr { width: 18px; height: 18px; transition: transform 180ms var(--ease); }
+    .btn:hover .arr { transform: translateX(3px); }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { background: #fff; box-shadow: 0 0 0 4px rgba(236, 238, 240, 0.12); }
+    .btn-ghost { border: 1px solid var(--border-strong); }
+    .btn-ghost:hover { border-color: #4A515A; background: var(--surface); }
 
-    /* The rest of the top section fades in after "whoami" finishes typing */
-    .reveal { opacity: 0; transform: translateY(6px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.show { opacity: 1; transform: none; }
-
-    /* Links as terminal-style buttons: [ Resume ] */
-    .links { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.92rem; }
-    .links a {
-      font-family: "IBM Plex Mono", monospace;
-      text-decoration: none;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 6px 14px;
-      transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    /* Doors. Each one has its own color, set with --c (r,g,b). */
+    main { flex: 1; }
+    .doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-top: 8px; }
+    .door {
+      --x: 50%; --y: 50%;
+      position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+      padding: 28px; text-decoration: none; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      transition: border-color 200ms ease, transform 200ms var(--ease);
     }
-    .links a::before { content: "[ "; color: var(--faint); }
-    .links a::after  { content: " ]"; color: var(--faint); }
-    .links a:hover { border-color: var(--accent); box-shadow: 0 0 12px var(--glow); transform: translateY(-2px); }
-
-    /* Sections fade in as you scroll to them */
-    .fade { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .fade.visible { opacity: 1; transform: none; }
-
-    /* ===== PROJECTS ===== */
-    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 20px 20px 18px;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    .door::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 200ms ease;
+      background: radial-gradient(460px circle at var(--x) var(--y), rgba(var(--c), 0.15), transparent 60%);
     }
-    .card:hover { border-color: var(--accent); box-shadow: 0 0 18px var(--glow); transform: translateY(-2px); }
-    .card h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: 6px; }
-    .card p { color: var(--muted); font-size: 0.93rem; }
-    .card ul { padding-left: 16px; color: var(--muted); font-size: 0.9rem; margin: 10px 0 14px; }
-    .card li { margin-bottom: 3px; }
-    .stack { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--faint); }
-    .card .more { font-size: 0.88rem; margin-top: 10px; display: inline-block; }
-    .card .more::after { content: " →"; display: inline-block; transition: transform 0.2s; }
-    .card .more:hover::after { transform: translateX(4px); }
-    .featured { grid-column: 1 / -1; }   /* makes a card full width */
+    .door > * { position: relative; }
+    .door:hover { transform: translateY(-3px); border-color: rgba(var(--c), 0.5); }
+    .door:hover::before { opacity: 1; }
+    .door-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .ico { width: 48px; height: 48px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; background: #1A1D22; color: #C9CDD3; flex-shrink: 0; transition: background-color 200ms ease, color 200ms ease, transform 200ms var(--ease); }
+    .ico svg { width: 24px; height: 24px; }
+    .door:hover .ico { background: rgb(var(--c)); color: var(--bg); transform: rotate(-6deg) scale(1.06); }
+    .addr { font-family: "Geist Mono", monospace; font-size: 13px; color: var(--dim); }
+    .soon { font-size: 12px; color: #C9CDD3; border: 1px solid #2E333A; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+    .door h2 { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
+    .door p { margin-top: 6px; font-size: 15px; color: var(--muted); }
+    .enter { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--muted); transition: color 200ms ease; }
+    .enter svg { width: 16px; height: 16px; transition: transform 200ms var(--ease); }
+    .door:hover .enter { color: rgb(var(--c)); }
+    .door:hover .enter svg { transform: translate(3px, -3px); }
 
-    /* ===== SKILLS ===== */
-    .skills { display: grid; grid-template-columns: 170px 1fr; gap: 10px 24px; font-size: 0.95rem; }
-    .skills dt { color: var(--muted); }
-    @media (max-width: 600px) { .skills { grid-template-columns: 1fr; } .skills dd { margin-bottom: 10px; } }
+    .door-work { --c: 127, 176, 255; grid-column: span 2; grid-row: span 2; padding: 32px; gap: 40px; }
+    .door-work h2 { font-size: 48px; letter-spacing: -0.045em; line-height: 1; }
+    .door-work p { margin-top: 12px; font-size: 17px; max-width: 26em; }
+    .door-work .enter { margin-top: 24px; }
+    .door-cards { --c: 230, 211, 179; min-height: 200px; }
+    .door-games { --c: 255, 154, 60; min-height: 200px; }
+    .door-writing { --c: 126, 217, 176; grid-column: span 3; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding: 22px 28px; }
+    .door-writing .ico { width: 40px; height: 40px; border-radius: 10px; }
+    .door-writing .ico svg { width: 20px; height: 20px; }
+    .door-writing .text { flex: 1 1 300px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+    .door-writing h2 { font-size: 20px; letter-spacing: -0.01em; }
+    .door-writing p { margin: 0; }
 
-    /* ===== EXPERIENCE ===== */
-    .job { display: grid; grid-template-columns: 130px 1fr; gap: 24px; margin-bottom: 28px; }
-    .job .when { font-family: "IBM Plex Mono", monospace; font-size: 0.82rem; color: var(--faint); padding-top: 3px; }
-    .job h3 { font-size: 1rem; font-weight: 600; }
-    .job ul { padding-left: 16px; color: var(--muted); font-size: 0.93rem; margin-top: 4px; }
-    @media (max-width: 600px) { .job { grid-template-columns: 1fr; gap: 2px; } }
+    .now { margin: 28px 0 72px; text-align: center; font-size: 14px; color: var(--dim); }
 
-    /* ===== FOOTER ===== */
-    footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 0.82rem; color: var(--faint); }
-    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    footer { border-top: 1px solid var(--line); }
+    footer .wrap { padding-top: 24px; padding-bottom: 32px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--dim); }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
 
-    /* Visitors who turn off motion in their device settings get a still page */
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .rise { animation: rise 600ms var(--ease) both; }
+    .d1 { animation-delay: 80ms; } .d2 { animation-delay: 160ms; } .d3 { animation-delay: 240ms; } .d4 { animation-delay: 320ms; }
+
+    @media (max-width: 860px) {
+      .doors { grid-template-columns: 1fr; }
+      .door-work, .door-writing { grid-column: auto; grid-row: auto; }
+      .door-work h2 { font-size: 40px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .nav-link, .nav-sep { display: none; }
+      .hero .wrap { padding-top: 48px; padding-bottom: 56px; }
+      .hero p { font-size: 18px; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      html { scroll-behavior: auto; }
-      .fade, .reveal { opacity: 1; transform: none; }
+      .rise { animation: none; }
+      .btn, .door, .ico, .icon-btn, .btn .arr, .enter svg, .door::before { transition: none; }
+      .door:hover, .icon-btn:hover { transform: none; }
+      .door:hover .ico { transform: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAV BAR ===== -->
-  <nav>
+  <nav class="nav">
     <div class="wrap">
-      <a class="logo" href="#"><img src="favicon.svg" alt="" width="24" height="24">beginn.me</a>
-      <ul>
-        <li><a href="#about">about</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#skills">skills</a></li>
-        <li><a href="#experience">experience</a></li>
-        <li><a href="#contact">contact</a></li>
-      </ul>
+      <a class="brand" href="/"><img src="/assets/logo.svg" alt="">beginn.me</a>
+      <div class="nav-right">
+        <a class="nav-link" href="/work/">Work</a>
+        <a class="nav-link" href="#cards">Cards</a>
+        <a class="nav-link" href="#games">Gaming</a>
+        <span class="nav-sep" aria-hidden="true"></span>
+        <a class="icon-btn" href="https://github.com/Bryanspeed03" aria-label="GitHub"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.930,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg></a>
+        <a class="icon-btn" href="https://linkedin.com/in/bryandavila/" aria-label="LinkedIn"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></svg></a>
+      </div>
     </div>
   </nav>
 
-  <!-- ===== TOP SECTION ===== -->
   <header class="hero">
     <div class="wrap">
-      <div class="prompt"><b>bryan@beginn</b>:~$ <span id="typed">whoami</span><span class="cursor"></span></div>
-      <div class="reveal" id="heroBody">
-      <h1>Bryan Davila</h1>
-      <p class="intro">
-        I studied IT at FIU with a focus on networking and security.
-        These days I'm building on AWS, including the server this page runs on.
-      </p>
-      <div class="status">Miami, FL &middot; looking for cloud and IT support roles</div>
-      <div class="links">
-        <!-- EDIT: upload your resume PDF next to this file and name it resume.pdf -->
-        <a href="resume.pdf" target="_blank">Resume</a>
-        <a href="https://github.com/Bryanspeed03" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/bryandavila/" target="_blank">LinkedIn</a>
-        <a href="mailto:bryan@beginn.me">Email</a>
-      </div>
+      <img class="logo-tile rise" src="/assets/logo.svg" alt="">
+      <h1 class="rise d1">Bryan Davila</h1>
+      <p class="rise d2">IT grad in Miami. I work in tech, run a card business, and play a lot of games.</p>
+      <div class="ctas rise d3">
+        <a class="btn btn-primary" href="/work/">View my work<svg class="arr" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+        <a class="btn btn-ghost" href="mailto:bryan@beginn.me">Email me</a>
       </div>
     </div>
   </header>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about" class="fade">
-    <div class="wrap">
-      <span class="label">~/about</span>
-      <!-- EDIT: Your About Me. Change the words between <p> and </p>. -->
-      <p>
-        Besides AWS, I am always working on my card business (<span class="mono">@bryanscardworld</span> everywhere),
-        playing video games, traveling when I can, and watching sports. I also write for my friend's blog,
-        which you can find at <a href="https://hydroxide.me" target="_blank">hydroxide.me</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- ===== PROJECTS ===== -->
-  <section id="projects" class="fade">
-    <div class="wrap">
-      <span class="label">~/projects</span>
-      <div class="cards">
-
-        <!-- This card is full width because of the "featured" class. Remove "featured" to make it normal size. -->
-        <div class="card featured">
-          <h3>This website</h3>
-          <p>I set up the server behind beginn.me myself instead of using a website builder.</p>
-          <ul>
-            <li>Ubuntu on AWS EC2 with an Elastic IP and SSH</li>
-            <li>Nginx web server, with Route 53 DNS for the domain and www</li>
-            <li>HTTPS through Certbot, set to renew on its own</li>
-            <li>CloudWatch alarms with SNS email alerts for downtime and high CPU</li>
-          </ul>
-          <div class="stack">aws ec2 / route 53 / nginx / ubuntu / certbot / cloudwatch / sns</div>
+  <main class="wrap rise d4">
+    <div class="doors">
+      <a class="door door-work" href="/work/">
+        <div class="door-top">
+          <span class="ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M160,40A88.09,88.09,0,0,0,81.29,88.67,64,64,0,1,0,72,216h88a88,88,0,0,0,0-176Zm0,160H72a48,48,0,0,1,0-96c1.1,0,2.2,0,3.29.11A88,88,0,0,0,72,128a8,8,0,0,0,16,0,72,72,0,1,1,72,72Zm37.66-93.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L144,148.69l42.34-42.35A8,8,0,0,1,197.66,106.34Z"/></svg></span>
+          <span class="addr">beginn.me/work</span>
         </div>
-
-        <!-- PROJECT CARD: copy a whole <div class="card">...</div> block to add a new project -->
-        <div class="card">
-          <h3>SSH Log Analyzer</h3>
-          <p>A Python script that reads Linux SSH logs and flags brute-force attempts.</p>
-          <ul>
-            <li>Sliding-window check for repeated failed logins per IP</li>
-            <li>Regex to pull out timestamps, usernames, and IPs</li>
-            <li>Tracked down a detection bug and a Windows encoding error</li>
-          </ul>
-          <div class="stack">python / regex</div>
-          <a class="more" href="https://github.com/Bryanspeed03/ssh-log-analyzer" target="_blank">Code on GitHub</a>
-        </div>
-
-        <div class="card">
-          <h3>Cloud Deployment Lab</h3>
-          <p>A locked-down Linux setup on AWS.</p>
-          <ul>
-            <li>EC2 with key-based SSH and tight security groups</li>
-            <li>S3 buckets with least-privilege IAM policies</li>
-          </ul>
-          <div class="stack">aws / iam / s3</div>
-        </div>
-
-        <div class="card">
-          <h3>Network Traffic &amp; Scanning</h3>
-          <p>Looked at live traffic and scanned a lab network for weak spots.</p>
-          <ul>
-            <li>DNS and HTTP traffic in Wireshark</li>
-            <li>Nmap scans, written up with fixes</li>
-          </ul>
-          <div class="stack">wireshark / nmap</div>
-        </div>
-
-        <div class="card">
-          <h3>Statcast Dashboard</h3>
-          <p>A Power BI dashboard on MLB data.</p>
-          <ul>
-            <li>Batting average vs. expected batting average by player</li>
-            <li>Cleaned the raw data myself before building it</li>
-          </ul>
-          <div class="stack">power bi</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SKILLS ===== -->
-  <section id="skills" class="fade">
-    <div class="wrap">
-      <span class="label">~/skills</span>
-      <dl class="skills">
-        <dt>Cloud &amp; systems</dt>   <dd>AWS (EC2, S3, IAM, Route 53), Ubuntu, Nginx, Windows</dd>
-        <dt>Network &amp; security</dt><dd>Wireshark, Nmap, TCP/IP, DNS, SSL/TLS, log analysis</dd>
-        <dt>Scripting &amp; data</dt>  <dd>Linux, Python, regex, SQL, Power BI, Excel</dd>
-        <dt>Other</dt>                  <dd>Git, EZLynx</dd>
-      </dl>
-    </div>
-  </section>
-
-  <!-- ===== EXPERIENCE ===== -->
-  <section id="experience" class="fade">
-    <div class="wrap">
-      <span class="label">~/experience</span>
-
-      <div class="job">
-        <div class="when">2023 – now</div>
         <div>
-          <h3>DRVN Insurance &middot; Administrative Assistant</h3>
-          <ul>
-            <li>Run auto and life quotes every day in EZLynx and carrier platforms</li>
-            <li>Draft auto policies under a licensed agent</li>
-          </ul>
+          <h2>Work</h2>
+          <p>Cloud, networking and security projects, my resume, and the AWS server this site runs on.</p>
+          <span class="enter">Open<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
         </div>
-      </div>
+      </a>
 
-      <div class="job">
-        <div class="when">2024 – now</div>
+      <div class="door door-cards" id="cards">
+        <div class="door-top">
+          <span class="ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M184,72H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V88A16,16,0,0,0,184,72Zm0,128H40V88H184V200ZM232,56V176a8,8,0,0,1-16,0V56H64a8,8,0,0,1,0-16H216A16,16,0,0,1,232,56Z"/></svg></span>
+          <span class="soon">Coming soon</span>
+        </div>
         <div>
-          <h3>Bryan's Card World &middot; Owner</h3>
-          <ul>
-            <li>Buy and sell sports and Pokémon cards at local shows and online</li>
-            <li>Track inventory and profit per show in spreadsheets I built</li>
-          </ul>
+          <h2>Bryan's Card World</h2>
+          <p>Sports and Pokémon cards. Shows, sales and inventory.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="fade">
-    <div class="wrap">
-      <span class="label">~/contact</span>
-      <p>Email is the best way to reach me: <a href="mailto:bryan@beginn.me">bryan@beginn.me</a></p>
+      <div class="door door-games" id="games">
+        <div class="door-top">
+          <span class="ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,112H152a8,8,0,0,1,0-16h24a8,8,0,0,1,0,16ZM104,96H96V88a8,8,0,0,0-16,0v8H72a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16ZM241.48,200.65a36,36,0,0,1-54.94,4.81c-.12-.12-.24-.24-.35-.37L146.48,160h-37L69.81,205.09l-.35.37A36.08,36.08,0,0,1,44,216,36,36,0,0,1,8.56,173.75a.68.68,0,0,1,0-.14L24.93,89.52A59.88,59.88,0,0,1,83.89,40H172a60.08,60.08,0,0,1,59,49.25c0,.06,0,.12,0,.18l16.37,84.17a.68.68,0,0,1,0,.14A35.74,35.74,0,0,1,241.48,200.65ZM172,144a44,44,0,0,0,0-88H83.89A43.9,43.9,0,0,0,40.68,92.37l0,.13L24.3,176.59A20,20,0,0,0,58,194.3l41.92-47.59a8,8,0,0,1,6-2.71Zm59.7,32.59-8.74-45A60,60,0,0,1,172,160h-4.2L198,194.31a20.09,20.09,0,0,0,17.46,5.39,20,20,0,0,0,16.23-23.11Z"/></svg></span>
+          <span class="soon">Coming soon</span>
+        </div>
+        <div>
+          <h2>Gaming</h2>
+          <p>My PC build, what I'm playing, and streams.</p>
+        </div>
+      </div>
+
+      <a class="door door-writing" href="https://hydroxide.me">
+        <span class="ico"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,92.68a15.86,15.86,0,0,0-4.69-11.31L174.63,12.68a16,16,0,0,0-22.63,0L123.57,41.11l-58,21.77A16.06,16.06,0,0,0,55.35,75.23L32.11,214.68A8,8,0,0,0,40,224a8.4,8.4,0,0,0,1.32-.11l139.44-23.24a16,16,0,0,0,12.35-10.17l21.77-58L243.31,104A15.87,15.87,0,0,0,248,92.68Zm-69.87,92.19L63.32,204l47.37-47.37a28,28,0,1,0-11.32-11.32L52,192.7,71.13,77.86,126,57.29,198.7,130ZM112,132a12,12,0,1,1,12,12A12,12,0,0,1,112,132Zm96-15.32L139.31,48l24-24L232,92.68Z"/></svg></span>
+        <div class="text">
+          <h2>Writing</h2>
+          <p>I write for my friend's blog, hydroxide.me</p>
+        </div>
+        <span class="enter">Read<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+      </a>
     </div>
-  </section>
+
+    <p class="now">Now: building out beginn.me, then studying for AWS Solutions Architect.</p>
+  </main>
 
   <footer>
     <div class="wrap">
-      <span>&copy; <span id="year"></span> Bryan Davila</span>
-      <span class="mono">deployed by github actions + aws ssm</span>
+      <span>© <span id="year">2026</span> Bryan Davila</span>
+      <a href="mailto:bryan@beginn.me">bryan@beginn.me</a>
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const heroBody = document.getElementById("heroBody");
-    const sections = document.querySelectorAll("section[id]");
-
-    // 1. Type out "whoami", then show the rest of the top section
-    if (reduceMotion) {
-      heroBody.classList.add("show");
-    } else {
-      const typed = document.getElementById("typed");
-      const command = typed.textContent;
-      typed.textContent = "";
-      let i = 0;
-      setTimeout(function typeNext() {
-        typed.textContent += command[i++];
-        if (i < command.length) setTimeout(typeNext, 110);
-        else setTimeout(() => heroBody.classList.add("show"), 250);
-      }, 400);
-    }
-
-    // 2. Fade each section in the first time it scrolls into view
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      sections.forEach((s) => s.classList.add("visible"));
-    } else {
-      const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add("visible"); fadeObserver.unobserve(e.target); }
-        });
-      }, { threshold: 0.1 });
-      sections.forEach((s) => fadeObserver.observe(s));
-    }
-
-    // 3. Highlight the nav link for the section you're reading
-    const navLinks = document.querySelectorAll("nav ul a");
-    const navHeight = document.querySelector("nav").offsetHeight;
-    let clickedId = null;   // set briefly after a nav click so the scroll doesn't override it
-
-    function setActive(id) {
-      navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
-    }
-
-    function updateActive() {
-      if (clickedId) return;
-      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-      let current = null;
-      if (atBottom) {
-        // Short sections at the bottom (like contact) can't reach the top, so pick the last one
-        current = sections[sections.length - 1].id;
-      } else {
-        // Otherwise: the last section whose top has passed just under the nav bar
-        sections.forEach((s) => {
-          if (s.getBoundingClientRect().top <= navHeight + 80) current = s.id;
-        });
-      }
-      setActive(current);   // null clears it when you're back at the top
-    }
-
-    // Clicking a link highlights it right away and keeps it highlighted
-    // until you scroll yourself (mouse wheel, touch, or keyboard)
-    navLinks.forEach((a) => {
-      a.addEventListener("click", () => {
-        clickedId = a.getAttribute("href").slice(1);
-        setActive(clickedId);
+    // The light inside each door follows the cursor.
+    document.querySelectorAll(".door").forEach(function (door) {
+      door.addEventListener("pointermove", function (e) {
+        const r = door.getBoundingClientRect();
+        door.style.setProperty("--x", (e.clientX - r.left) + "px");
+        door.style.setProperty("--y", (e.clientY - r.top) + "px");
       });
     });
-    function releaseClick() {
-      if (clickedId) { clickedId = null; requestAnimationFrame(updateActive); }
-    }
-    ["wheel", "touchmove", "keydown"].forEach((ev) =>
-      window.addEventListener(ev, releaseClick, { passive: true })
-    );
-
-    window.addEventListener("scroll", updateActive, { passive: true });
-    window.addEventListener("resize", updateActive);
-    updateActive();
   </script>
 </body>
 </html>
