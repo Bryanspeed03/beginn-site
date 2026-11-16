@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryan's Card World</title>
+  <meta name="description" content="Sports and Pokémon cards in Miami. Find us at local card shows, shop on eBay, or sell us your cards.">
+  <link rel="icon" href="/assets/favicon-cards.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:title" content="Bryan's Card World">
+  <meta property="og:description" content="Sports and Pokémon cards. Miami shows and online.">
+  <meta property="og:image" content="https://beginn.me/assets/og.png">
+  <meta property="og:url" content="https://beginn.me/cards/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0A0B0D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Colors. "accent" is the cards-page beige (13:1 on --bg).
+       The logo underscore uses a deeper tan (#8C6A3F) so it shows on the light logo tile. */
+    :root {
+      --bg: #0A0B0D;
+      --surface: #111316;
+      --surface-2: #15181C;
+      --surface-3: #0F1114;
+      --line: #1C1F24;
+      --border: #23272D;
+      --border-strong: #2A2F36;
+      --text: #ECEEF0;
+      --muted: #9BA1A9;
+      --dim: #7C838C;
+      --accent: #E6D3B3;
+      --ease: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* Written for phones first. Wider screens are handled at the bottom. */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Geist", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overflow-wrap: break-word;
+    }
+    main { overflow-x: clip; }
+    a { color: var(--text); }
+    a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 8px; }
+    h1, h2, h3, p, ol { margin: 0; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+    .ph { color: var(--dim); font-style: italic; } /* placeholder text, replace later */
+
+    /* Nav */
+    .nav { border-bottom: 1px solid var(--line); }
+    .nav .wrap { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; min-width: 0; white-space: nowrap; }
+    .brand img { width: 28px; height: 28px; display: block; flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+    .nav-link { display: none; color: var(--muted); text-decoration: none; padding: 8px 12px; border-radius: 10px; transition: color 150ms ease, background-color 150ms ease; }
+    .nav-link:hover { color: var(--text); background: #16191D; }
+    .nav-home { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px 0 10px; border: 1px solid var(--border-strong); border-radius: 999px; color: var(--text); text-decoration: none; font-size: 14px; transition: border-color 150ms ease, background-color 150ms ease; }
+    .nav-home:hover { border-color: #4A515A; background: #16191D; }
+    .nav-home svg { width: 16px; height: 16px; }
+    .nav-sep { display: none; width: 1px; height: 20px; background: var(--border); margin: 0 8px; }
+    .icon-btn { width: 44px; height: 44px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); transition: color 150ms ease, background-color 150ms ease, transform 150ms var(--ease); }
+    .icon-btn:hover { color: var(--text); background: #16191D; transform: translateY(-1px); }
+    .icon-btn svg { width: 22px; height: 22px; }
+
+    /* Header */
+    .hero { padding-top: 40px; padding-bottom: 48px; }
+    .hello { font-family: "Geist Mono", monospace; font-size: 13px; color: var(--accent); margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(38px, 11vw, 64px); line-height: 1.02; font-weight: 600; letter-spacing: -0.045em; max-width: 11em; }
+    .hero-sub { margin-top: 16px; font-size: 17px; color: var(--muted); max-width: 28em; }
+    .ctas { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 22px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease, box-shadow 200ms ease; }
+    .btn:active { transform: scale(0.98); }
+    .btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary:hover { box-shadow: 0 0 0 4px rgba(230, 211, 179, 0.18); }
+    .btn-ghost { border: 1px solid var(--border-strong); font-weight: 500; }
+    .btn-ghost:hover { border-color: #4A515A; background: var(--surface); }
+
+    /* Sections */
+    .section { padding: 56px 0; border-top: 1px solid var(--line); }
+    .section-title { font-size: 30px; font-weight: 600; letter-spacing: -0.035em; }
+    .section-lead { margin-top: 8px; color: var(--muted); font-size: 16px; max-width: 34em; }
+    .section-body { margin-top: 24px; }
+
+    /* Next show */
+    .show { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; position: relative; overflow: hidden; }
+    .show::before { content: ""; position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; background: radial-gradient(closest-side, rgba(230, 211, 179, 0.10), transparent); pointer-events: none; }
+    .show-tag { position: relative; display: inline-block; font-size: 12px; color: var(--accent); border: 1px solid rgba(230, 211, 179, 0.35); border-radius: 999px; padding: 3px 10px; margin-bottom: 18px; }
+    .facts { position: relative; display: grid; gap: 16px; margin: 0; }
+    .tba { position: relative; font-size: 18px; font-weight: 500; max-width: 30em; }
+    .show .ctas { position: relative; margin-top: 20px; }
+    .tile strong { color: var(--text); font-weight: 600; }
+    .fact { display: flex; gap: 14px; align-items: flex-start; }
+    .fact-ico { width: 40px; height: 40px; border-radius: 10px; background: #1A1D22; color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fact-ico svg { width: 20px; height: 20px; }
+    .fact dt { font-size: 13px; color: var(--dim); }
+    .fact dd { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+
+    /* We buy */
+    .buy-types { display: grid; gap: 12px; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .tile h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; }
+    .tile p { margin-top: 4px; color: var(--muted); font-size: 15px; }
+    .steps { margin-top: 28px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+    .steps h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+    .steps ol { list-style: none; padding: 0; display: grid; gap: 14px; counter-reset: step; }
+    .steps li { counter-increment: step; display: flex; gap: 12px; color: var(--muted); font-size: 15px; }
+    .steps li::before { content: counter(step); font-family: "Geist Mono", monospace; font-size: 13px; font-weight: 500; width: 26px; height: 26px; border-radius: 999px; border: 1px solid rgba(230, 211, 179, 0.4); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .steps li strong { color: var(--text); font-weight: 600; }
+    .steps .ctas { margin-top: 22px; }
+
+    /* Shop and follow link rows */
+    .links { display: grid; gap: 12px; }
+    .link-card { display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; transition: border-color 150ms ease, transform 150ms var(--ease); }
+    .link-card:hover { border-color: rgba(230, 211, 179, 0.5); transform: translateY(-2px); }
+    .link-card .fact-ico { width: 44px; height: 44px; }
+    .link-card .text { flex: 1; min-width: 0; }
+    .link-card strong { display: block; font-weight: 600; }
+    .link-card span.handle { display: block; font-family: "Geist Mono", monospace; font-size: 13px; color: var(--dim); }
+    .link-card .go { width: 18px; height: 18px; color: var(--dim); flex-shrink: 0; transition: transform 150ms var(--ease), color 150ms ease; }
+    .link-card:hover .go { color: var(--accent); transform: translate(2px, -2px); }
+
+    /* Contact */
+    .contact { border-top: 1px solid var(--line); position: relative; overflow: hidden; }
+    .contact::before { content: ""; position: absolute; left: 50%; top: -40px; width: 760px; height: 360px; margin-left: -380px; background: radial-gradient(closest-side, rgba(230, 211, 179, 0.07), transparent); pointer-events: none; }
+    .contact .wrap { position: relative; padding-top: 64px; padding-bottom: 64px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .contact h2 { font-size: 34px; font-weight: 600; letter-spacing: -0.04em; }
+    .contact p { margin-top: 10px; font-size: 17px; color: var(--muted); }
+    .contact .ctas { width: 100%; max-width: 420px; }
+    .contact .btn-primary { font-size: 16px; }
+    .contact .email { word-break: break-all; }
+
+    footer { border-top: 1px solid var(--line); }
+    footer .wrap { padding-top: 24px; padding-bottom: 32px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--dim); }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* One load-in moment for the header */
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .rise { animation: rise 520ms var(--ease) both; }
+    .d1 { animation-delay: 60ms; } .d2 { animation-delay: 120ms; } .d3 { animation-delay: 180ms; }
+
+    /* Very narrow phones: drop the Home label, keep the icon */
+    @media (max-width: 400px) {
+      .nav-home { padding: 0 10px; }
+      .nav-home .label { display: none; }
+    }
+    /* Larger phones and up */
+    @media (min-width: 560px) {
+      .wrap { padding: 0 24px; }
+      .ctas { flex-direction: row; flex-wrap: wrap; }
+      .ctas .btn { flex: 1 1 auto; }
+      .buy-types { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    /* Tablets and desktops */
+    @media (min-width: 768px) {
+      .wrap { padding: 0 32px; }
+      .nav .wrap { height: 68px; }
+      .nav-link, .nav-sep { display: inline-block; }
+      .nav-home { margin-right: 6px; }
+      .hero { padding-top: 88px; padding-bottom: 96px; }
+      .hello { margin-bottom: 20px; }
+      .hero-sub { margin-top: 24px; font-size: 19px; }
+      .ctas { margin-top: 36px; }
+      .hero .ctas .btn, .show .ctas .btn { flex: 0 0 auto; }
+      .section { padding: 88px 0; }
+      .section-title { font-size: 40px; }
+      .section-body { margin-top: 36px; }
+      .show { padding: 32px; }
+      .tile { padding: 24px; }
+      .steps { padding: 28px; }
+      .links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .contact .wrap { padding-top: 104px; padding-bottom: 104px; }
+      .contact h2 { font-size: 48px; }
+      .contact p { font-size: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .rise { animation: none; }
+      .btn, .icon-btn, .nav-link, .link-card, .link-card .go { transition: none; }
+      .icon-btn:hover, .link-card:hover, .link-card:hover .go { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/cards/"><img src="/assets/logo-cards.svg" alt="">Bryan's Card World</a>
+      <div class="nav-right">
+        <a class="nav-home" href="/" aria-label="Home"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg><span class="label">Home</span></a>
+        <a class="nav-link" href="#show">Next show</a>
+        <a class="nav-link" href="#buy">We buy</a>
+        <a class="nav-link" href="#shop">Shop</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <span class="nav-sep" aria-hidden="true"></span>
+        <a class="icon-btn" href="https://instagram.com/bryanscardworld" aria-label="Instagram"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- 1. Header -->
+    <header class="wrap hero">
+      <p class="hello rise">@bryanscardworld</p>
+      <h1 class="rise d1">Bryan's Card World</h1>
+      <p class="hero-sub rise d2">Sports and Pokémon cards. Find me at Miami card shows or shop online.</p>
+      <div class="ctas rise d3">
+        <a class="btn btn-primary" href="#show"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg>Next show</a>
+        <a class="btn btn-ghost" href="#buy">Sell me your cards</a>
+      </div>
+    </header>
+
+    <!-- 2. Next show. Update the three values below before each show. -->
+    <section id="show" class="section" aria-labelledby="show-title">
+      <div class="wrap">
+        <h2 id="show-title" class="section-title">Next show</h2>
+        <p class="section-lead">Come say hi at my table. I'm buying and selling at every show.</p>
+        <!-- No show booked: this block shows. When you book one, delete this
+             block and uncomment the "Upcoming" block below it. -->
+        <div class="section-body show">
+          <span class="show-tag">To be announced</span>
+          <p class="tba">No show booked right now. The next date goes up on Instagram first.</p>
+          <div class="ctas">
+            <a class="btn btn-ghost" href="https://instagram.com/bryanscardworld">Follow @bryanscardworld</a>
+          </div>
+        </div>
+
+        <!--
+        <div class="section-body show">
+          <span class="show-tag">Upcoming</span>
+          <dl class="facts">
+            <div class="fact">
+              <span class="fact-ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg></span>
+              <div><dt>Date</dt><dd class="ph">[Show date and time]</dd></div>
+            </div>
+            <div class="fact">
+              <span class="fact-ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg></span>
+              <div><dt>Venue</dt><dd class="ph">[Venue name, Miami]</dd></div>
+            </div>
+            <div class="fact">
+              <span class="fact-ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M184,72H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V88A16,16,0,0,0,184,72Zm0,128H40V88H184V200ZM232,56V176a8,8,0,0,1-16,0V56H64a8,8,0,0,1,0-16H216A16,16,0,0,1,232,56Z"/></svg></span>
+              <div><dt>Table</dt><dd class="ph">[Table #]</dd></div>
+            </div>
+          </dl>
+        </div>
+        -->
+      </div>
+    </section>
+
+    <!-- 3. We buy cards -->
+    <section id="buy" class="section" aria-labelledby="buy-title">
+      <div class="wrap">
+        <h2 id="buy-title" class="section-title">We buy cards</h2>
+        <p class="section-lead">Sports and Pokémon. One card or a whole collection.</p>
+        <div class="section-body">
+          <div class="buy-types">
+            <article class="tile">
+              <h3>Singles</h3>
+              <p><strong>Sports:</strong> case hits and autos.<br><strong>Pokémon:</strong> vintage or modern.</p>
+            </article>
+            <article class="tile">
+              <h3>Slabs</h3>
+              <p>PSA preferred, for both sports and Pokémon.</p>
+            </article>
+            <article class="tile">
+              <h3>Collections</h3>
+              <p>Send what you have! I'll take a look at anything.</p>
+            </article>
+          </div>
+
+          <div class="steps">
+            <h3>How to send photos</h3>
+            <ol>
+              <li><span><strong>Take clear photos</strong> of the front and back. For slabs, make sure the label is readable.</span></li>
+              <li><span><strong>Send them</strong> by Instagram DM to @bryanscardworld or by email.</span></li>
+              <li><span><strong>Watch for my reply.</strong> I get back to messages fast, usually within a day.</span></li>
+            </ol>
+            <div class="ctas">
+              <a class="btn btn-primary" href="https://ig.me/m/bryanscardworld"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>DM photos</a>
+              <a class="btn btn-ghost" href="mailto:bryantcgandsports@gmail.com?subject=Cards%20for%20sale"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>Email photos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Shop online. To add a platform, copy one <a class="link-card">. -->
+    <section id="shop" class="section" aria-labelledby="shop-title">
+      <div class="wrap">
+        <h2 id="shop-title" class="section-title">Shop online</h2>
+        <p class="section-lead">Can't make a show? Buy from me online.</p>
+        <div class="section-body links">
+          <a class="link-card" href="https://www.ebay.com/usr/bryanscardworld">
+            <span class="fact-ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" width="22" height="22"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96v16a40,40,0,0,0,16,32v64a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V144a40,40,0,0,0,16-32ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-48,0v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm-8-72a24,24,0,0,1-24-24v-8h48v8A24,24,0,0,1,192,136Z"/></svg></span>
+            <span class="text"><strong>eBay</strong><span class="handle">bryanscardworld</span></span>
+            <svg class="go" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Follow -->
+    <section id="follow" class="section" aria-labelledby="follow-title">
+      <div class="wrap">
+        <h2 id="follow-title" class="section-title">Follow</h2>
+        <p class="section-lead">New pickups, show dates and pulls go up on Instagram first.</p>
+        <div class="section-body links">
+          <a class="link-card" href="https://instagram.com/bryanscardworld">
+            <span class="fact-ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" width="22" height="22"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg></span>
+            <span class="text"><strong>Instagram</strong><span class="handle">@bryanscardworld</span></span>
+            <svg class="go" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Contact -->
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <h2>Get in touch</h2>
+        <p>Questions, trades or want-lists. DM or email me.</p>
+        <div class="ctas">
+          <a class="btn btn-primary email" href="mailto:bryantcgandsports@gmail.com"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>bryantcgandsports@gmail.com</a>
+          <a class="btn btn-ghost" href="https://ig.me/m/bryanscardworld">DM on Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Bryan's Card World</span>
+      <a href="/">Back to beginn.me</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
