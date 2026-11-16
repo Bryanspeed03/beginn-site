@@ -44,6 +44,9 @@
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overflow-wrap: break-word;
     }
     main { overflow-x: clip; }
     a { color: var(--text); }
@@ -66,10 +69,10 @@
     .icon-btn svg { width: 20px; height: 20px; }
 
     /* Hero */
-    .hero { padding: 88px 0 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
+    .hero { padding-top: 88px; padding-bottom: 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
     .hero-text { flex: 1 1 520px; min-width: 0; }
     .hello { font-size: 16px; color: var(--muted); margin-bottom: 20px; }
-    .hero h1 { font-size: clamp(44px, 6vw, 64px); line-height: 1.02; font-weight: 600; letter-spacing: -0.045em; max-width: 10em; }
+    .hero h1 { font-size: clamp(38px, 10vw, 64px); line-height: 1.02; font-weight: 600; letter-spacing: -0.045em; max-width: 10em; }
     .hero-sub { margin-top: 24px; font-size: 19px; color: var(--muted); max-width: 26em; }
     .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
     .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease, box-shadow 200ms ease; }
@@ -173,10 +176,24 @@
     }
     /* Phones */
     @media (max-width: 640px) {
-      .wrap { padding: 0 20px; }
+      .wrap { padding: 0 24px; }
       .nav-link { display: none; }
       .nav-sep { display: none; }
-      .hero { padding: 56px 0 64px; gap: 40px; }
+      .hero { padding-top: 48px; padding-bottom: 56px; gap: 40px; }
+      .hello { margin-bottom: 14px; }
+      .hero-sub { margin-top: 18px; font-size: 17px; }
+      .ctas { margin-top: 28px; }
+      .ctas .btn { flex: 1 1 auto; justify-content: center; white-space: nowrap; }
+      .diagram { padding: 20px 16px 18px; }
+      .diagram figcaption { margin-bottom: 16px; }
+      .node { padding: 10px 12px; }
+      .node-main { padding: 14px; }
+      .node-top { font-size: 13px; }
+      .tools .wrap { gap: 12px 24px; font-size: 14px; }
+      .tiles { gap: 12px; }
+      .tile, .tile.wide { padding: 22px; }
+      .tile h3, .tile.big h3 { font-size: 19px; }
+      .tile.big p, .about p { font-size: 16px; }
       .section { padding: 64px 0; }
       .section-title { font-size: 32px; margin-bottom: 28px; }
       .two-col, .skills { grid-template-columns: 1fr; }

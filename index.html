@@ -39,7 +39,11 @@
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overflow-wrap: break-word;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
@@ -78,7 +82,7 @@
     .hero .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .logo-tile { width: 64px; height: 64px; border-radius: 16px; display: block; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 40px rgba(150, 170, 210, 0.18); }
     .hero h1 {
-      margin-top: 32px; font-size: clamp(52px, 8vw, 76px); line-height: 1; font-weight: 600; letter-spacing: -0.05em;
+      margin-top: 32px; font-size: clamp(42px, 12vw, 76px); line-height: 1; font-weight: 600; letter-spacing: -0.05em;
       background: linear-gradient(180deg, #FFFFFF 30%, #A9AFB8); -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .hero p { margin-top: 22px; font-size: 20px; color: var(--muted); max-width: 30em; }
@@ -151,11 +155,28 @@
       .door-work, .door-writing { grid-column: auto; grid-row: auto; }
       .door-work h2 { font-size: 40px; }
     }
+    /* Phones */
     @media (max-width: 640px) {
-      .wrap { padding: 0 20px; }
+      .wrap { padding: 0 24px; }
       .nav-link, .nav-sep { display: none; }
-      .hero .wrap { padding-top: 48px; padding-bottom: 56px; }
-      .hero p { font-size: 18px; }
+      .hero .wrap { padding-top: 40px; padding-bottom: 48px; }
+      .hero h1 { margin-top: 24px; }
+      .hero p { margin-top: 16px; font-size: 17px; }
+      .ctas { margin-top: 28px; width: 100%; }
+      .ctas .btn { flex: 1 1 auto; justify-content: center; white-space: nowrap; }
+      .doors { gap: 12px; padding-top: 0; }
+      .door { padding: 24px; gap: 20px; }
+      .door-cards, .door-games { min-height: 0; }
+      .door-work { padding: 24px; gap: 28px; }
+      .door-work h2 { font-size: 36px; }
+      .door-work p { font-size: 16px; }
+      .door-work .enter { margin-top: 20px; }
+      .door h2 { font-size: 24px; }
+      .door-writing { padding: 20px 24px; gap: 12px 16px; }
+      .door-writing .text { flex-basis: 180px; }
+      .door-writing h2 { font-size: 20px; }
+      .now { margin: 24px 0 56px; }
+      footer .wrap { padding-bottom: 28px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .rise { animation: none; }
