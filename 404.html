@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found | beginn.me</title>
+  <meta name="robots" content="noindex">
+  <!-- All paths start with / because this page can show up at any address. -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0A0B0D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0B0D;
+      --surface: #111316;
+      --line: #1C1F24;
+      --border: #23272D;
+      --border-strong: #2A2F36;
+      --text: #ECEEF0;
+      --muted: #9BA1A9;
+      --dim: #7C838C;
+      --ease: cubic-bezier(0.2, 0, 0, 1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+      background: var(--bg); color: var(--text);
+      font-family: "Geist", system-ui, sans-serif; font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    a { color: var(--text); }
+    a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 999px; }
+    h1, p { margin: 0; }
+
+    main { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; padding: 64px 24px; overflow: hidden; }
+    main::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(#15181C 1px, transparent 1px), linear-gradient(90deg, #15181C 1px, transparent 1px);
+      background-size: 56px 56px; background-position: center;
+      -webkit-mask-image: radial-gradient(ellipse 55% 60% at 50% 45%, #000 25%, transparent 75%);
+      mask-image: radial-gradient(ellipse 55% 60% at 50% 45%, #000 25%, transparent 75%);
+    }
+    main::after {
+      content: ""; position: absolute; left: 50%; top: -200px; width: 1000px; height: 600px; margin-left: -500px; pointer-events: none;
+      background: radial-gradient(closest-side, rgba(170, 190, 230, 0.12), transparent);
+    }
+    .box { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 560px; }
+    .logo { width: 56px; height: 56px; border-radius: 14px; display: block; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 40px rgba(150, 170, 210, 0.18); }
+    .code {
+      margin-top: 28px; font-size: clamp(96px, 22vw, 160px); line-height: 0.9; font-weight: 600; letter-spacing: -0.06em;
+      background: linear-gradient(180deg, #FFFFFF 25%, #6F7680); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .term {
+      margin-top: 28px; width: 100%; text-align: left;
+      font-family: "Geist Mono", monospace; font-size: 14px; line-height: 1.8; color: var(--muted);
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px;
+      overflow-wrap: anywhere;
+    }
+    .term .prompt { color: var(--text); }
+    .msg { margin-top: 24px; font-size: 18px; color: var(--muted); }
+    .ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease, transform 150ms var(--ease), box-shadow 200ms ease; }
+    .btn:active { transform: scale(0.97); }
+    .btn svg { width: 18px; height: 18px; }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { background: #fff; box-shadow: 0 0 0 4px rgba(236, 238, 240, 0.12); }
+    .btn-ghost { border: 1px solid var(--border-strong); }
+    .btn-ghost:hover { border-color: #4A515A; background: var(--surface); }
+
+    footer { border-top: 1px solid var(--line); }
+    footer div { max-width: 1160px; margin: 0 auto; padding: 24px 32px 32px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--dim); }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="box">
+      <a href="/" aria-label="beginn.me home"><img class="logo" src="/assets/logo.svg" alt=""></a>
+      <h1 class="code">404</h1>
+      <p class="term"><span class="prompt">bryan@beginn:~$</span> cd <span id="path">/this-page</span><br>cd: no such file or directory</p>
+      <p class="msg">This page doesn't exist. It may have moved, or the link has a typo.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="/"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg>Go home</a>
+        <a class="btn btn-ghost" href="/work/">See my work</a>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div>
+      <span>© <span id="year">2026</span> Bryan Davila</span>
+      <a href="mailto:bryan@beginn.me">bryan@beginn.me</a>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    // Show the address the visitor actually tried, so the joke matches.
+    var p = decodeURIComponent(location.pathname);
+    if (p && p !== "/404.html") document.getElementById("path").textContent = p.slice(0, 80);
+  </script>
+</body>
+</html>
